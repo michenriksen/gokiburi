@@ -1,5 +1,12 @@
 # Gokiburi: Automatic Test Runs for Go Projects
 
+<div align="right">
+    <a href="LICENSE.md"><img src="https://img.shields.io/github/license/michenriksen/gokiburi" alt="License: MIT" /></a>
+    <a href="https://github.com/michenriksen/gokiburi/actions/workflows/build.yml"><img src="https://img.shields.io/github/actions/workflow/status/michenriksen/gokiburi/build.yml?label=backend&style=flat-square" alt="Backend build status" /></a>
+    <a href="https://github.com/michenriksen/gokiburi/actions/workflows/build-fe.yml"><img src="https://img.shields.io/github/actions/workflow/status/michenriksen/gokiburi/build-fe.yml?label=frontend&style=flat-square" alt="Frontend build status" /></a>
+    <a href="https://github.com/michenriksen/gokiburi/releases"><img src="https://img.shields.io/github/downloads/michenriksen/gokiburi/total?style=flat-square" alt="Download count" /></a>
+</div>
+
 <br />
 <br />
 <br />
