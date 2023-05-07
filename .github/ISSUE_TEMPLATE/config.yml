@@ -1,0 +1,12 @@
+---
+blank_issues_enabled: false
+contact_links:
+  - name: 🛟 Help & Support
+    url: https://github.com/michenriksen/gokiburi/discussions/categories/q-a
+    about: Please ask and answer questions here.
+  - name: 💡 Feature Requests & Ideas
+    url: https://github.com/michenriksen/gokiburi/discussions/categories/ideas
+    about: Please add feature requests and ideas here.
+  - name: 🛡️ Vulnerability Disclosure
+    url: https://michenriksen.com/
+    about: Please e-mail me if you think you have found a vulnerability or other sensitive issue.

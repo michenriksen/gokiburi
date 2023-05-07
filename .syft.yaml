@@ -1,0 +1,4 @@
+---
+golang:
+  search-local-mod-cache-licenses: true
+  search-remote-licenses: true

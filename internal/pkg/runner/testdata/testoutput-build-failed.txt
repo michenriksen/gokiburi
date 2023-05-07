@@ -1,0 +1,3 @@
+# github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers [github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers.test]
+./numbers_test.go:9:16: cannot use "2" (untyped string constant) as int value in argument to IntMin
+FAIL	github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers [build failed]

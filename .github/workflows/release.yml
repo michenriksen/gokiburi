@@ -1,0 +1,66 @@
+---
+name: Release
+
+permissions:
+  contents: write
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version (e.g., v1.0.0)"
+        required: true
+
+jobs:
+  run:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - run: git fetch --force --tags
+
+      - name: Create release
+        run: |
+          git config --global user.email "mchnrksn@gmail.com"
+          git config --global user.name "Michael Henriksen"
+          git tag -a "$VERSION" -m "$VERSION"
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+
+      - uses: actions/setup-go@v4
+        with:
+          go-version: stable
+
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "latest"
+          cache: "npm"
+          cache-dependency-path: "web/app/package-lock.json"
+
+      - name: Install NPM dependencies
+        run: npm ci && git diff --exit-code
+        working-directory: web/app
+
+      - name: Install Syft
+        run: curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v4
+        with:
+          distribution: goreleaser
+          version: latest
+          args: release --clean
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GOPATH: ${{ github.workspace }}/go
+
+      - name: Notify Go proxy about new release
+        run: go list -m "github.com/michenriksen/gokiburi@$VERSION" || true
+        env:
+          GOPROXY: proxy.golang.org
+          VERSION: ${{ github.event.inputs.version }}

@@ -1,0 +1,217 @@
+---
+run:
+  go: "1.20"
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - errcheck
+        - forcetypeassert
+        - gosec
+        - revive
+        - wsl
+
+linters-settings:
+  depguard:
+    list-type: denylist
+    packages-with-error-message:
+      - github.com/stretchr/testify/assert: "use github.com/stretchr/testify/require for faster tests"
+      - github.com/davecgh/go-spew: "spew is only for temporary debugging"
+    additional-guards:
+      - list-type: denylist
+        packages-with-error-message:
+          - github.com/stretchr/testify: "testify must only be used in test files"
+        ignore-file-rules:
+          - "**/*_test.go"
+      - list-type: denylist
+        packages-with-error-message:
+          - github.com/brianvoe/gofakeit: "gofakeit must only be used in test files"
+        ignore-file-rules:
+          - "**/*_test.go"
+
+  forbidigo:
+    forbid:
+      - 'fmt\.Print.*'
+      - 'log\.Print.*'
+
+  gofumpt:
+    extra-rules: true
+
+  goimports:
+    local-prefixes: github.com/michenriksen/gokiburi
+
+  nolintlint:
+    require-explanation: true
+    require-specific: true
+
+  wrapcheck:
+    ignorePackageGlobs:
+      - github.com/labstack/echo/*
+      - github.com/invopop/validation
+      - encoding/json
+
+  revive:
+    rules:
+      - name: argument-limit
+        severity: warning
+        disabled: false
+        arguments: [4]
+      - name: atomic
+        severity: warning
+        disabled: false
+      - name: bool-literal-in-expr
+        severity: warning
+        disabled: false
+      - name: cognitive-complexity
+        severity: warning
+        disabled: false
+        arguments: [20]
+      - name: comment-spacings
+        severity: warning
+        disabled: false
+        arguments:
+          - nolint
+          - "#nosec"
+      - name: constant-logical-expr
+        severity: warning
+        disabled: false
+      - name: context-as-argument
+        severity: warning
+        disabled: false
+      - name: cyclomatic
+        severity: warning
+        disabled: false
+        arguments: [20]
+      - name: context-keys-type
+        severity: warning
+        disabled: false
+      - name: datarace
+        severity: warning
+        disabled: false
+      - name: deep-exit
+        severity: warning
+        disabled: false
+      - name: defer
+        severity: warning
+        disabled: false
+      - name: duplicated-imports
+        severity: warning
+        disabled: false
+      - name: early-return
+        severity: warning
+        disabled: false
+      - name: empty-block
+        severity: warning
+        disabled: false
+      - name: error-return
+        severity: warning
+        disabled: false
+      - name: error-strings
+        severity: warning
+        disabled: false
+      - name: errorf
+        severity: warning
+        disabled: false
+      - name: function-result-limit
+        severity: warning
+        disabled: false
+        arguments: [3]
+      - name: identical-branches
+        severity: warning
+        disabled: false
+      - name: if-return
+        severity: warning
+        disabled: false
+      - name: increment-decrement
+        severity: warning
+        disabled: false
+      - name: import-shadowing
+        severity: warning
+        disabled: false
+      - name: line-length-limit
+        severity: warning
+        disabled: false
+        arguments: [120]
+      - name: modifies-parameter
+        severity: warning
+        disabled: false
+      - name: modifies-value-receiver
+        severity: warning
+        disabled: false
+      - name: optimize-operands-order
+        severity: warning
+        disabled: false
+      - name: range
+        severity: warning
+        disabled: false
+      - name: range-val-in-closure
+        severity: warning
+        disabled: false
+      - name: range-val-address
+        severity: warning
+        disabled: false
+      - name: redefines-builtin-id
+        severity: warning
+        disabled: false
+      - name: string-of-int
+        severity: warning
+        disabled: false
+      - name: struct-tag
+        severity: warning
+        disabled: false
+      - name: var-naming
+        severity: warning
+        disabled: false
+      - name: var-declaration
+        severity: warning
+        disabled: false
+      - name: unconditional-recursion
+        severity: warning
+        disabled: false
+      - name: unnecessary-stmt
+        severity: warning
+        disabled: false
+      - name: unreachable-code
+        severity: warning
+        disabled: false
+      - name: unused-parameter
+        severity: warning
+        disabled: false
+      - name: unused-receiver
+        severity: warning
+        disabled: false
+      - name: use-any
+        severity: warning
+        disabled: false
+
+linters:
+  disable-all: true
+  enable:
+    - bidichk
+    - depguard
+    - errcheck
+    - errname
+    - forcetypeassert
+    - gocheckcompilerdirectives
+    - gocritic
+    - godot
+    - gofumpt
+    - goimports
+    - gosec
+    - gosimple
+    - ineffassign
+    - makezero
+    - misspell
+    - nolintlint
+    - prealloc
+    - revive
+    - staticcheck
+    - tenv
+    - testpackage
+    - thelper
+    - typecheck
+    - unused
+    - usestdlibvars
+    - wrapcheck
+    - wsl

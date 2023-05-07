@@ -1,0 +1,90 @@
+# This is an example .goreleaser.yml file with some sensible defaults.
+# Make sure to check the documentation at https://goreleaser.com
+---
+project_name: gokiburi
+report_sizes: true
+env:
+  - BUILD_COMMIT={{ .FullCommit }}
+  - BUILD_TIME={{ .Date }}
+before:
+  hooks:
+    - make clean
+    - go mod tidy
+    - make dep-csv
+    - make sbom
+    - make build-fe
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    goarm:
+      - 6
+      - 7
+    ignore:
+      - goos: darwin
+        goarch: arm64
+        goarm: 6
+      - goos: darwin
+        goarch: arm64
+        goarm: 7
+    mod_timestamp: "{{ .CommitTimestamp }}"
+    flags:
+      - "-trimpath"
+    asmflags:
+      - "all=-trimpath={{ .Env.GOPATH }}"
+    gcflags:
+      - "all=-trimpath={{ .Env.GOPATH }}"
+    ldflags:
+      - "-s -w"
+      - "-X github.com/michenriksen/gokiburi/internal/gokiburi.buildVersion={{ .Version }}"
+      - "-X github.com/michenriksen/gokiburi/internal/gokiburi.buildCommit={{ .FullCommit }}"
+      - "-X github.com/michenriksen/gokiburi/internal/gokiburi.buildTime={{ .Date }}"
+
+archives:
+  - format: tar.gz
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+    # use zip for windows archives
+    format_overrides:
+      - goos: windows
+        format: zip
+    files:
+      - README.md
+      - LICENSE.md
+      - dependencies.csv
+      - "{{ .ProjectName }}.spdx.sbom"
+
+checksum:
+  name_template: "checksums.txt"
+snapshot:
+  name_template: "{{ incpatch .Version }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^chore"
+      - "^docs"
+      - "^test"
+      - "merge conflict"
+      - "Merge pull request"
+      - "Merge remote-tracking branch"
+      - "Merge branch"
+
+release:
+  draft: true
+  replace_existing_draft: true
+# The lines beneath this are called `modelines`. See `:help modeline`
+# Feel free to remove those if you don't want/use them.
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+# vim: set ts=2 sw=2 tw=0 fo=cnqoj

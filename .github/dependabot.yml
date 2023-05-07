@@ -1,0 +1,38 @@
+---
+version: 2
+updates:
+  - package-ecosystem: "gomod"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    assignees:
+      - michenriksen
+    labels:
+      - deps
+      - gomod
+      - automerge
+    commit-message:
+      prefix: "chore(deps)"
+  - package-ecosystem: "npm"
+    directory: "/web/app"
+    schedule:
+      interval: "weekly"
+    assignees:
+      - michenriksen
+    labels:
+      - deps
+      - npm
+      - automerge
+    commit-message:
+      prefix: "chore(deps)"
+  - package-ecosystem: GitHub-actions
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    assignees:
+      - michenriksen
+    labels:
+      - deps
+      - ghactions
+    commit-message:
+      prefix: "chore(ci)"

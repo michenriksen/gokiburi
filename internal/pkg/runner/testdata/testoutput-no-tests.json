@@ -1,0 +1,6 @@
+{"Time":"2023-01-01T13:37:00.879004Z","Action":"start","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers"}
+{"Time":"2023-01-01T13:37:00.879054Z","Action":"output","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Output":"testing: warning: no tests to run\n"}
+{"Time":"2023-01-01T13:37:00.879063Z","Action":"output","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Output":"PASS\n"}
+{"Time":"2023-01-01T13:37:00.879068Z","Action":"output","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Output":"\tgithub.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers\tcoverage: 0.0% of statements\n"}
+{"Time":"2023-01-01T13:37:00.879074Z","Action":"output","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Output":"ok  \tgithub.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers\t(cached)\tcoverage: 0.0% of statements [no tests to run]\n"}
+{"Time":"2023-01-01T13:37:00.87908Z","Action":"pass","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Elapsed":0}

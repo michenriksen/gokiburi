@@ -1,0 +1,33 @@
+{"Time":"2023-01-01T13:37:00.557861Z","Action":"start","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers"}
+{"Time":"2023-01-01T13:37:00.557925Z","Action":"run","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinBasic"}
+{"Time":"2023-01-01T13:37:00.557931Z","Action":"output","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinBasic","Output":"=== RUN   TestIntMinBasic\n"}
+{"Time":"2023-01-01T13:37:00.557939Z","Action":"output","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinBasic","Output":"--- PASS: TestIntMinBasic (0.00s)\n"}
+{"Time":"2023-01-01T13:37:00.557945Z","Action":"pass","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinBasic","Elapsed":0}
+{"Time":"2023-01-01T13:37:00.557952Z","Action":"run","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven"}
+{"Time":"2023-01-01T13:37:00.557956Z","Action":"output","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven","Output":"=== RUN   TestIntMinTableDriven\n"}
+{"Time":"2023-01-01T13:37:00.55796Z","Action":"run","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven/0,1"}
+{"Time":"2023-01-01T13:37:00.557963Z","Action":"output","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven/0,1","Output":"=== RUN   TestIntMinTableDriven/0,1\n"}
+{"Time":"2023-01-01T13:37:00.557969Z","Action":"output","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven/0,1","Output":"--- PASS: TestIntMinTableDriven/0,1 (0.00s)\n"}
+{"Time":"2023-01-01T13:37:00.557973Z","Action":"pass","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven/0,1","Elapsed":0}
+{"Time":"2023-01-01T13:37:00.557977Z","Action":"run","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven/1,0"}
+{"Time":"2023-01-01T13:37:00.55798Z","Action":"output","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven/1,0","Output":"=== RUN   TestIntMinTableDriven/1,0\n"}
+{"Time":"2023-01-01T13:37:00.557984Z","Action":"output","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven/1,0","Output":"--- PASS: TestIntMinTableDriven/1,0 (0.00s)\n"}
+{"Time":"2023-01-01T13:37:00.557987Z","Action":"pass","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven/1,0","Elapsed":0}
+{"Time":"2023-01-01T13:37:00.557991Z","Action":"run","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven/2,-2"}
+{"Time":"2023-01-01T13:37:00.558004Z","Action":"output","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven/2,-2","Output":"=== RUN   TestIntMinTableDriven/2,-2\n"}
+{"Time":"2023-01-01T13:37:00.558008Z","Action":"output","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven/2,-2","Output":"--- PASS: TestIntMinTableDriven/2,-2 (0.00s)\n"}
+{"Time":"2023-01-01T13:37:00.558012Z","Action":"pass","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven/2,-2","Elapsed":0}
+{"Time":"2023-01-01T13:37:00.558015Z","Action":"run","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven/0,-1"}
+{"Time":"2023-01-01T13:37:00.558019Z","Action":"output","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven/0,-1","Output":"=== RUN   TestIntMinTableDriven/0,-1\n"}
+{"Time":"2023-01-01T13:37:00.558033Z","Action":"output","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven/0,-1","Output":"--- PASS: TestIntMinTableDriven/0,-1 (0.00s)\n"}
+{"Time":"2023-01-01T13:37:00.558036Z","Action":"pass","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven/0,-1","Elapsed":0}
+{"Time":"2023-01-01T13:37:00.558038Z","Action":"run","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven/-1,0"}
+{"Time":"2023-01-01T13:37:00.55804Z","Action":"output","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven/-1,0","Output":"=== RUN   TestIntMinTableDriven/-1,0\n"}
+{"Time":"2023-01-01T13:37:00.558043Z","Action":"output","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven/-1,0","Output":"--- PASS: TestIntMinTableDriven/-1,0 (0.00s)\n"}
+{"Time":"2023-01-01T13:37:00.558046Z","Action":"pass","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven/-1,0","Elapsed":0}
+{"Time":"2023-01-01T13:37:00.558049Z","Action":"output","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven","Output":"--- PASS: TestIntMinTableDriven (0.00s)\n"}
+{"Time":"2023-01-01T13:37:00.558051Z","Action":"pass","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Test":"TestIntMinTableDriven","Elapsed":0}
+{"Time":"2023-01-01T13:37:00.558054Z","Action":"output","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Output":"PASS\n"}
+{"Time":"2023-01-01T13:37:00.558056Z","Action":"output","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Output":"\tgithub.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers\tcoverage: 100.0% of statements\n"}
+{"Time":"2023-01-01T13:37:00.558067Z","Action":"output","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Output":"ok  \tgithub.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers\t(cached)\tcoverage: 100.0% of statements\n"}
+{"Time":"2023-01-01T13:37:00.55807Z","Action":"pass","Package":"github.com/michenriksen/gokiburi/internal/pkg/runner/testdata/numbers","Elapsed":0}
