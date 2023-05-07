@@ -1,0 +1,4 @@
+mode: atomic
+github.com/michenriksen/gokiburi/internal/pkg/coverparser/testdata/numbers/numbers.go:5.27,6.11 1 5
+github.com/michenriksen/gokiburi/internal/pkg/coverparser/testdata/numbers/numbers.go:6.11,8.3 1 2
+github.com/michenriksen/gokiburi/internal/pkg/coverparser/testdata/numbers/numbers.go:9.2,9.10 1 3

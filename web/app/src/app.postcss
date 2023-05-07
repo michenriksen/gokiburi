@@ -1,0 +1,54 @@
+/*place global styles here */
+html,
+body {
+	@apply h-full overflow-hidden;
+}
+
+.tooltip {
+	position: relative;
+}
+
+.tooltip:before {
+	@apply bg-surface-900 p-2 mt-2 text-sm text-center rounded max-w-sm whitespace-nowrap absolute z-50;
+	content: attr(data-tip);
+	position: absolute;
+	top: 100%;
+	opacity: 0;
+	transition: 0.3s opacity;
+}
+
+.tooltip:hover:before {
+	opacity: 1;
+}
+
+.tooltip.tooltip-left:before {
+	margin: initial;
+	@apply mr-2;
+	top: 50%;
+	right: 100%;
+	transform: translateY(-50%);
+}
+
+.tooltip.tooltip-right:before {
+	margin: initial;
+	@apply ml-2;
+	top: 50%;
+	left: 100%;
+	transform: translateY(-50%);
+}
+
+.tooltip:hover:before {
+	display: block;
+}
+
+.tooltip-notifications:before {
+	left: -50px;
+}
+
+.tooltip-runall:before {
+	left: -25px;
+}
+
+.tooltip-collapse-sidebar:before {
+	left: -75px;
+}

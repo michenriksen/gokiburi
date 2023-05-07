@@ -1,0 +1,30 @@
+{
+	"mode": "atomic",
+	"profiles": [
+		{
+			"filename": "github.com/johndoe/project/pkg/warpcore/warpcore.go",
+			"package": "github.com/johndoe/project/pkg/warpcore",
+			"path": "/Users/johndoe/src/github.com/johndoe/project/pkg/warpcore/warpcore.go",
+			"content": "...",
+			"size": 0,
+			"coverage": 88.88888888888889,
+			"boundaries": [
+				{
+					"offset": 137,
+					"start": true,
+					"count": 3,
+					"norm": 0.5645750340535796,
+					"index": 0
+				},
+				{
+					"offset": 202,
+					"start": false,
+					"count": 0,
+					"norm": 0,
+					"index": 1
+				}
+			]
+		}
+	],
+	"time": "2023-04-11T21:23:12.604891+02:00"
+}

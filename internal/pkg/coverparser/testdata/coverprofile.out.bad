@@ -1,0 +1,3 @@
+mode: atomic
+github.com/michenriksen/gokiburi/internal/pkg/coverparser/testdata/main.go:Oops,what am I doing here!?,6.11 1 5
+
