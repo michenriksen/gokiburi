@@ -5,6 +5,7 @@
     <a href="https://goreportcard.com/report/github.com/michenriksen/gokiburi"><img src="https://goreportcard.com/badge/github.com/michenriksen/gokiburi" alt="Go Report: A+" /></a>
     <a href="https://github.com/michenriksen/gokiburi/actions/workflows/build.yml"><img src="https://img.shields.io/github/actions/workflow/status/michenriksen/gokiburi/build.yml?label=backend&style=flat-square" alt="Backend build status" /></a>
     <a href="https://github.com/michenriksen/gokiburi/actions/workflows/build-fe.yml"><img src="https://img.shields.io/github/actions/workflow/status/michenriksen/gokiburi/build-fe.yml?label=frontend&style=flat-square" alt="Frontend build status" /></a>
+    <img src="https://img.shields.io/badge/status-beta-yellow" alt="Status: Beta" />
     <a href="https://github.com/michenriksen/gokiburi/releases"><img src="https://img.shields.io/github/downloads/michenriksen/gokiburi/total?style=flat-square" alt="Download count" /></a>
 </div>
 
