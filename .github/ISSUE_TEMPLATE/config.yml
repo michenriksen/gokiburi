@@ -7,6 +7,3 @@ contact_links:
   - name: 💡 Feature Requests & Ideas
     url: https://github.com/michenriksen/gokiburi/discussions/categories/ideas
     about: Please add feature requests and ideas here.
-  - name: 🛡️ Vulnerability Disclosure
-    url: https://michenriksen.com/
-    about: Please e-mail me if you think you have found a vulnerability or other sensitive issue.
