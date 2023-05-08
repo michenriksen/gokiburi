@@ -61,12 +61,11 @@ Gokiburi runs tests with code coverage by default. When you click the coverage b
 
 ## Installation
 
-It’s recommended to install the most recent pre-compiled binary release for your operating system and architecture from the [releases page](https://github.com/michenriksen/gokiburi/releases).
+**It’s recommended to install the most recent pre-compiled binary release for your operating system and architecture from the [releases page](https://github.com/michenriksen/gokiburi/releases).**
 
-If you have Go installed, it’s also possible to install the latest development version with the command:
+You can also install Gokiburi from its source code. However, a basic `go install` command will not suffice, as the web UI assets must be constructed. To install from source, ensure you have [Node.js](https://nodejs.org/) installed and follow these steps:
 
-```shell
-$ go install github.com/michenriksen/gokiburi@latest
-```
-
-The `@latest` tag can also be replaced with a specific release tag if you would rather not install the latest code.
+1. Clone repository and navigate to the project in a terminal
+2. Inside the `web/app` directory, run `npm install` to install frontend dependencies
+3. In the project root, run `make build` to build web UI assets and binary
+4. Alternatively, run `make build-fe` and run the code with `go run main.go`
