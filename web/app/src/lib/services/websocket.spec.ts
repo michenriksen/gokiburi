@@ -66,8 +66,10 @@ describe('WSMessageManager', () => {
 	});
 
 	describe('when message kind is resultError', () => {
-		it('notifies the user', async () => {
+		it('notifies the user and updates state store to ready', async () => {
 			NotificationService.notify = vi.fn();
+
+			state.set('running');
 
 			manager.start();
 			await server.connected;
@@ -81,12 +83,15 @@ describe('WSMessageManager', () => {
 			);
 
 			expect(document.title).toContain('ERROR: warp core breach');
+			expect(get(state)).toBe('ready');
 		});
 	});
 
 	describe('when message kind is resultEmpty', () => {
-		it('notifies the user', async () => {
+		it('notifies the user and updates state store to ready', async () => {
 			NotificationService.notify = vi.fn();
+
+			state.set('running');
 
 			manager.start();
 			await server.connected;
@@ -96,6 +101,8 @@ describe('WSMessageManager', () => {
 			expect(NotificationService.notify).toHaveBeenCalledWith('No tests found for 2 packages', 'warning', 'deadbeef');
 
 			expect(document.title).toContain('NO TESTS FOUND');
+
+			expect(get(state)).toBe('ready');
 		});
 	});
 

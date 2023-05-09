@@ -162,6 +162,7 @@ export class WSMessageManager {
 
 		NotificationService.notify(`Tests failed with error: ${result.error}`, 'error', result.uuid);
 		setPageTitle(`✖ ERROR: ${result.error}`);
+		state.set('ready');
 	}
 
 	private handleResultEmpty(message: WSMessage) {
@@ -180,6 +181,7 @@ export class WSMessageManager {
 			result.uuid
 		);
 		setPageTitle('? NO TESTS FOUND');
+		state.set('ready');
 	}
 
 	private handleNotification(message: WSMessage) {
