@@ -169,7 +169,7 @@ func (r *Runner) Run(pkgs ...string) (*Result, error) {
 			result.Error = err.Error()
 			result.Pass = false
 
-			return result, err
+			return result, nil
 		}
 	}
 

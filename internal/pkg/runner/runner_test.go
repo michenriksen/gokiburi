@@ -284,8 +284,8 @@ func TestRunner_Run_BuildFailed(t *testing.T) {
 
 	result, err := r.Run(testTarget)
 
-	require.ErrorContains(t, err, "build failed")
-	require.NotNil(t, result)
+	require.Equal(t, "build failed", result.Error)
+	require.Nil(t, err)
 
 	defer func() {
 		if dir := result.Dir(); dir != "" {
