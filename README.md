@@ -63,7 +63,22 @@ Gokiburi runs tests with code coverage by default. When you click the coverage b
 
 ## Installation
 
-**It’s recommended to install the most recent pre-compiled binary release for your operating system and architecture from the [releases page](https://github.com/michenriksen/gokiburi/releases).**
+### Homebrew
+
+You can easily install Gokiburi using Homebrew by entering the following commands in the terminal:
+
+```console
+~$ brew tap michenriksen/gokiburi
+~$ brew install gokiburi
+```
+
+### Pre-built binaries
+
+Download a pre-built binary for your system from [Releases](https://github.com/michenriksen/gokiburi/releases) and place it in a directory included in your `$PATH` settings.
+
+**For macOS users:** You might encounter a situation where the binary is blocked by macOS Gatekeeper. Check the release description for a solution to this issue.
+
+### From source
 
 You can also install Gokiburi from its source code. However, a basic `go install` command will not suffice, as the web UI assets must be constructed. To install from source, ensure you have [Node.js](https://nodejs.org/) installed and follow these steps:
 
