@@ -20,7 +20,7 @@ jobs:
     outputs:
       go_changes: ${{ steps.filter.outputs.go_changes }}
       fe_changes: ${{ steps.filter.outputs.fe_changes }}
-      gh_actions_changes: ${{ steps.filter.outputs.gh_actions_changes }}
+      gha_changes: ${{ steps.filter.outputs.gha_changes}}
     steps:
       - uses: actions/checkout@v3
 
