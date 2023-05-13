@@ -57,6 +57,7 @@ jobs:
         env:
           VERSION: ${{ github.event.inputs.version }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HOMEBREW_TAP_GITHUB_TOKEN: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}
           GOPATH: ${{ github.workspace }}/go
 
       - name: Notify Go proxy about new release
