@@ -35,4 +35,4 @@ updates:
       - deps
       - ghactions
     commit-message:
-      prefix: "chore(ci)"
+      prefix: "chore(deps)"
