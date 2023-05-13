@@ -76,6 +76,8 @@ changelog:
       - "^chore"
       - "^docs"
       - "^test"
+      - "^ci"
+      - "^build"
       - "merge conflict"
       - "Merge pull request"
       - "Merge remote-tracking branch"
