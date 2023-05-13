@@ -91,11 +91,11 @@ brews:
   - name: "{{ .ProjectName }}"
     homepage: "https://github.com/michenriksen/gokiburi"
     description: "Automatic test runs for Go projects"
-    token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
     license: "MIT"
     tap:
       owner: "michenriksen"
       name: "homebrew-{{ .ProjectName }}"
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
     test: |
       system "#{bin}/{{ .ProjectName }} --version"
 
