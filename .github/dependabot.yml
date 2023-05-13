@@ -25,7 +25,7 @@ updates:
       - automerge
     commit-message:
       prefix: "chore(deps)"
-  - package-ecosystem: GitHub-actions
+  - package-ecosystem: github-actions
     directory: "/"
     schedule:
       interval: "weekly"
