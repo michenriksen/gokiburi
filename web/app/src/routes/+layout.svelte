@@ -145,6 +145,7 @@
 		runTestsEvent.subscribe((pkg: string) => {
 			if (pkg !== '' && stateVal === 'ready') {
 				run(pkg);
+				runTestsEvent.set('');
 			}
 		})
 	);
