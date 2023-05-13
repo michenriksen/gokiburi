@@ -86,6 +86,19 @@ changelog:
 release:
   draft: true
   replace_existing_draft: true
+
+brews:
+  - name: "{{ .ProjectName }}"
+    homepage: "https://github.com/michenriksen/gokiburi"
+    description: "Automatic test runs for Go projects"
+    token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    license: "MIT"
+    tap:
+      owner: "michenriksen"
+      name: "homebrew-{{ .ProjectName }}"
+    test: |
+      system "#{bin}/{{ .ProjectName }} --version"
+
 # The lines beneath this are called `modelines`. See `:help modeline`
 # Feel free to remove those if you don't want/use them.
 # yaml-language-server: $schema=https://goreleaser.com/static/schema.json
