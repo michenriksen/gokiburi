@@ -17,67 +17,47 @@ concurrency:
 jobs:
   run:
     runs-on: ubuntu-latest
-    outputs:
-      go_changes: ${{ steps.filter.outputs.go_changes }}
-      fe_changes: ${{ steps.filter.outputs.fe_changes }}
-      gha_changes: ${{ steps.filter.outputs.gha_changes}}
+    if: github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
     steps:
       - uses: actions/checkout@v3
 
+      - name: Determine audit mode
+        id: mode
+        run: |
+          if [[ "${{ github.event_name }}" == "push" || "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "full_audit=false" >> $GITHUB_OUTPUT
+          else
+            echo "full_audit=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Check modified files
         uses: dorny/paths-filter@v2
-        id: filter
+        id: changes
         with:
-          filters: |
-            go_changes:
-              - '**.go'
-              - 'go.mod'
-            fe_changes:
-              - 'web/app/**.ts'
-              - 'web/app/**.js'
-              - 'web/app/**.cjs'
-              - 'web/app/**.json'
-              - 'web/app/**.svelte'
-              - 'web/app/package.json'
-            gha_changes:
-              - '.github/**.yml'
+          filters: .github/file-filters.yml
 
       - name: Install Python
-        if: >-
-          ${{ github.actor != 'dependabot[bot]' &&
-          !contains('["push", "pull_request"]', github.event_name) ||
-          needs.check_changes.outputs.go_changes == 'true' ||
-          needs.check_changes.outputs.fe_changes == 'true' ||
-          needs.check_changes.outputs.gha_changes == 'true' }}
+        if: ${{ steps.mode.outputs.full_audit == 'true' || steps.changes.outputs.auditable == 'true' }}
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
       - name: Install Semgrep
-        if: >-
-          ${{ github.actor != 'dependabot[bot]' &&
-          !contains('["push", "pull_request"]', github.event_name) ||
-          needs.check_changes.outputs.go_changes == 'true' ||
-          needs.check_changes.outputs.fe_changes == 'true' ||
-          needs.check_changes.outputs.gha_changes == 'true' }}
+        if: ${{ steps.mode.outputs.full_audit == 'true' || steps.changes.outputs.auditable == 'true' }}
         run: |
           python -m pip install --upgrade pip
           pip install semgrep
 
       - name: Install Go
-        if: >-
-          ${{ github.actor != 'dependabot[bot]' &&
-          !contains('["push", "pull_request"]', github.event_name) ||
-          needs.check_changes.outputs.go_changes == 'true' }}
+        if: |
+          ${{ steps.mode.outputs.full_audit == 'true' || steps.changes.outputs.backend_all == 'true' }}
         uses: actions/setup-go@v4
         with:
           go-version: "stable"
 
       - uses: actions/cache@v3
-        if: >-
-          ${{ github.actor != 'dependabot[bot]' &&
-          !contains('["push", "pull_request"]', github.event_name) ||
-          needs.check_changes.outputs.go_changes == 'true' }}
+        if: |
+          ${{ steps.mode.outputs.full_audit == 'true' || steps.changes.outputs.backend_all == 'true' }}
         with:
           path: |
             ~/.cache/go-build
@@ -87,38 +67,28 @@ jobs:
             ${{ runner.os }}-go-
 
       - name: Install govulncheck
-        if: >-
-          ${{ github.actor != 'dependabot[bot]' &&
-          !contains('["push", "pull_request"]', github.event_name) ||
-          needs.check_changes.outputs.go_changes == 'true' }}
+        if: |
+          ${{ steps.mode.outputs.full_audit == 'true' || steps.changes.outputs.backend_all == 'true' }}
         run: go install golang.org/x/vuln/cmd/govulncheck@latest
 
       - name: Create Dummy Frontend Build
-        if: >-
-          ${{ github.actor != 'dependabot[bot]' &&
-          !contains('["push", "pull_request"]', github.event_name) ||
-          needs.check_changes.outputs.go_changes == 'true' }}
+        if: |
+          ${{ steps.mode.outputs.full_audit == 'true' || steps.changes.outputs.backend_all == 'true' }}
         run: mkdir web/app/build && touch web/app/build/dummy.txt
 
       - name: Install Go Dependencies
-        if: >-
-          ${{ github.actor != 'dependabot[bot]' &&
-          !contains('["push", "pull_request"]', github.event_name) ||
-          needs.check_changes.outputs.go_changes == 'true' }}
+        if: |
+          ${{ steps.mode.outputs.full_audit == 'true' || steps.changes.outputs.backend_all == 'true' }}
         run: go mod tidy
 
       - name: Audit Go Code
-        if: >-
-          ${{ github.actor != 'dependabot[bot]' &&
-          !contains('["push", "pull_request"]', github.event_name) ||
-          needs.check_changes.outputs.go_changes == 'true' }}
+        if: |
+          ${{ steps.mode.outputs.full_audit == 'true' || steps.changes.outputs.backend_all == 'true' }}
         run: make audit
 
       - name: Install Node
-        if: >-
-          ${{ github.actor != 'dependabot[bot]' &&
-          !contains('["push", "pull_request"]', github.event_name) ||
-          needs.check_changes.outputs.fe_changes == 'true' }}
+        if: |
+          ${{ steps.mode.outputs.full_audit == 'true' || steps.changes.outputs.frontend_all == 'true' }}
         uses: actions/setup-node@v3
         with:
           node-version: "latest"
@@ -126,23 +96,14 @@ jobs:
           cache-dependency-path: "web/app/package-lock.json"
 
       - name: Install NPM dependencies
-        if: >-
-          ${{ github.actor != 'dependabot[bot]' &&
-          !contains('["push", "pull_request"]', github.event_name) ||
-          needs.check_changes.outputs.fe_changes == 'true' }}
+        if: ${{ steps.mode.outputs.full_audit == 'true' || steps.changes.outputs.frontend_all == 'true' }}
         run: npm ci && git diff --exit-code
         working-directory: web/app
 
       - name: Audit Frontend Code
-        if: >-
-          ${{ github.actor != 'dependabot[bot]' &&
-          !contains('["push", "pull_request"]', github.event_name) ||
-          needs.check_changes.outputs.fe_changes == 'true' }}
+        if: ${{ steps.mode.outputs.full_audit == 'true' || steps.changes.outputs.frontend_all == 'true' }}
         run: make audit-fe
 
       - name: Audit GitHub Actions
-        if: >-
-          ${{ github.actor != 'dependabot[bot]' &&
-          !contains('["push", "pull_request"]', github.event_name) ||
-          needs.check_changes.outputs.gha_changes == 'true' }}
+        if: ${{ steps.mode.outputs.full_audit == 'true' || steps.changes.outputs.ci == 'true' }}
         run: make audit-gha

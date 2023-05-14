@@ -1,0 +1,44 @@
+# File path filters used by the dorny/paths-filter action in workflows.
+---
+backend_src: &backend_src
+  - "**/*.go"
+
+backend_deps: &backend_deps
+  - "go.mod"
+  - "go.sum"
+
+backend_all: &backend_all
+  - *backend_src
+  - *backend_deps
+
+frontend_src: &frontend_src
+  - "web/app/**/*.ts"
+  - "web/app/**/*.js"
+  - "web/app/**/*.svelte"
+  - "web/app/**/*.cjs"
+  - "web/app/src/**/*.json"
+
+frontend_deps: &frontend_deps
+  - "web/app/package.json"
+  - "web/app/package-lock.json"
+
+frontend_all: &frontend_all
+  - *frontend_src
+  - *frontend_deps
+
+ci: &ci
+  - ".github/**/*.yml"
+
+scripts:
+  - "scripts/**/*.sh"
+
+golangcilint:
+  - ".golangci.yaml"
+
+goreleaser:
+  - ".goreleaser.yaml"
+
+auditable:
+  - *backend_all
+  - *frontend_all
+  - *ci
