@@ -1,0 +1,54 @@
+---
+name: Verify Frontend
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "web/app/**/*.json"
+      - "web/app/**/*.cjs"
+      - "web/app/**/*.ts"
+      - "web/app/**/*.js"
+      - "web/app/**/*.svelte"
+  pull_request:
+    branches: [main]
+    paths:
+      - "web/app/**/*.json"
+      - "web/app/**/*.cjs"
+      - "web/app/**/*.ts"
+      - "web/app/**/*.js"
+      - "web/app/**/*.svelte"
+  schedule:
+    - cron: "0 10 * * 1"
+  workflow_call:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Verify Frontend
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      fail-fast: true
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Install Go
+        uses: actions/setup-go@v4
+        with:
+          go-version-file: "go.mod"
+          cache-dependency-path: "go.sum"
+
+      - name: Install dependencies
+        run: "go install github.com/caarlos0/svu@latest"
+
+      - name: Run make verify-fe
+        run: make verify-fe

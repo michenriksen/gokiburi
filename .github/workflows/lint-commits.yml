@@ -1,0 +1,57 @@
+---
+name: Lint Commits
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_call:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint Commits
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      fail-fast: true
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install Go
+        uses: actions/setup-go@v4
+        with:
+          go-version-file: "go.mod"
+          cache-dependency-path: "go.sum"
+
+      - name: Install dependencies
+        run: "go install github.com/caarlos0/svu@latest"
+
+      - name: Lint Commit (push)
+        if: github.event_name == 'push'
+        run: make lint-commits
+        env:
+          COMMITLINT_FROM: "HEAD~1"
+          COMMITLINT_TO: "HEAD"
+
+      - name: Lint Commits (pull_request)
+        if: github.event_name == 'pull_request'
+        run: make lint-commits
+        env:
+          COMMITLINT_FROM: "${{ github.event.pull_request.base.sha }}"
+          COMMITLINT_TO: "${{ github.event.pull_request.head.sha }}"
+
+      - name: Lint All Commits
+        if: github.event_name == 'workflow_call'
+        run: make lint-commits
