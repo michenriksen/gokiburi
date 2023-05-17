@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
 export const runTestsEvent = writable<string>('');
-export const openSettingsEvent = writable<boolean>(false);
+export const openSettingsEvent = writable<boolean | null>(null);
 
 /**
  * Dispatch event to run tests for given package.

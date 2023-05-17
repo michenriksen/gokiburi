@@ -151,10 +151,14 @@
 	);
 
 	subscriptions.push(
-		openSettingsEvent.subscribe((opened: boolean) => {
-			if (opened === true) {
-				drawerStore.open(settingsDrawer);
+		openSettingsEvent.subscribe((opened: boolean | null) => {
+			if (opened === null) {
+				return;
 			}
+
+			opened ? drawerStore.open(settingsDrawer) : drawerStore.close();
+
+			openSettingsEvent.set(null);
 		})
 	);
 
