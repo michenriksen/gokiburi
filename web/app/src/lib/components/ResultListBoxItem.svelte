@@ -48,7 +48,7 @@
 		{:else if result.error}
 			{#if result.error == 'timeout'}
 				<SvgIcon path={mdiTimerRemoveOutline} class="text-error-500" size={iconSize} />
-			{:else}j
+			{:else}
 				<SvgIcon path={mdiAlertCircleOutline} class="text-error-500" size={iconSize} />
 			{/if}
 		{:else}

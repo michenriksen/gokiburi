@@ -31,7 +31,7 @@
 	import { WSMessageManager } from '$lib/services/websocket';
 
 	import { pluralize, setPageTitle } from '$lib/common/utils';
-	import type { State } from '$lib/common/types';
+	import type { NotificationType, State } from '$lib/common/types';
 
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset });
 
@@ -111,25 +111,30 @@
 				return;
 			}
 
+			let message = '';
+			let type: NotificationType = 'error';
+			let title = '';
+
 			if (newResult.pass) {
-				NotificationService.notify(
-					`Ran ${pluralize(newResult.tests, 'test', 'tests')} with 0 failures.`,
-					'pass',
-					newResult.uuid
-				);
-				setPageTitle(`✓ PASS: ${pluralize(newResult.tests, 'test', 'tests')}`);
+				message = `Ran ${pluralize(newResult.tests, 'test', 'tests')} with 0 failures.`;
+				type = 'pass';
+				title = `✓ PASS: ${pluralize(newResult.tests, 'test', 'tests')}`;
+			} else if (newResult.error !== '') {
+				const isTimeout = newResult.error === 'timeout';
+				message = isTimeout ? 'Test run timed out.' : `Test run failed with error: ${newResult.error}`;
+				title = isTimeout ? '✖ TIMEOUT: Test run timed out.' : `✖ ERROR: ${newResult.error}`;
 			} else {
-				NotificationService.notify(
-					`Ran ${pluralize(newResult.tests, 'test', 'tests')} with ${pluralize(
-						newResult.failed,
-						'failure',
-						'failures'
-					)}.`,
-					'fail',
-					newResult.uuid
-				);
-				setPageTitle(`✖ FAIL: ${pluralize(newResult.failed, 'failure', 'failures')}`);
+				message = `Ran ${pluralize(newResult.tests, 'test', 'tests')} with ${pluralize(
+					newResult.failed,
+					'failure',
+					'failures'
+				)}.`;
+				type = 'fail';
+				title = `✖ FAIL: ${pluralize(newResult.failed, 'failure', 'failures')}`;
 			}
+
+			NotificationService.notify(message, type, newResult.uuid);
+			setPageTitle(title);
 
 			fetchResults();
 		})
