@@ -39,6 +39,7 @@ type Result struct {
 	Start    time.Time     `json:"start"`
 	Duration time.Duration `json:"duration"`
 	ExitCode int           `json:"exitCode"`
+	Output   []byte        `json:"output"`
 	Targets  []string      `json:"targets"`
 	Passed   int           `json:"passed"`
 	Failed   int           `json:"failed"`
@@ -168,6 +169,7 @@ func (r *Runner) Run(pkgs ...string) (*Result, error) {
 		if err := r.handleError(err, out); err != nil {
 			result.Error = err.Error()
 			result.Pass = false
+			result.Output = out
 
 			return result, nil
 		}
@@ -252,8 +254,6 @@ func (r *Runner) handleError(err error, out []byte) error {
 		reason = "timeout"
 	case errors.Is(err, exec.ErrNotFound):
 		reason = fmt.Sprintf("go binary %q was not found", r.goBin)
-	case bytes.Contains(out, []byte("panic: test timed out")):
-		reason = "timeout"
 	case bytes.Contains(out, []byte("[build failed]")):
 		reason = "build failed"
 	default:

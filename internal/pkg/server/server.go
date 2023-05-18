@@ -122,12 +122,7 @@ func (s *Server) Close() error {
 // Prepends the result to the internal result slice. Slice is trimmed if its
 // length exceeds configured max results.
 func (s *Server) AddResult(r *runner.Result) {
-	if r.Error != "" {
-		s.sendClientMessage(newClientMessage("resultError", r))
-		return
-	}
-
-	if r.Tests == 0 {
+	if r.Error == "" && r.Tests == 0 {
 		s.sendClientMessage(newClientMessage("resultEmpty", r))
 		return
 	}

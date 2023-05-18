@@ -122,7 +122,7 @@ func TestServerWebsocketResultError(t *testing.T) {
 	serverInstance.AddResult(&runner.Result{UUID: "deadbeef", Error: "warp core breach"})
 	msg := waitForMessage(t, ws)
 
-	require.Equal(t, "resultError", msg.Kind)
+	require.Equal(t, "result", msg.Kind)
 
 	result, ok := msg.Data.(map[string]any)
 	require.True(t, ok)

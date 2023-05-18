@@ -152,6 +152,7 @@ export class WSMessageManager {
 
 	private handleResultError(message: WSMessage) {
 		this.log(`received resultError message`);
+		state.set('ready');
 
 		if (!message.data) {
 			this.log('resultError message missing data, ignoring');
@@ -162,11 +163,11 @@ export class WSMessageManager {
 
 		NotificationService.notify(`Tests failed with error: ${result.error}`, 'error', result.uuid);
 		setPageTitle(`✖ ERROR: ${result.error}`);
-		state.set('ready');
 	}
 
 	private handleResultEmpty(message: WSMessage) {
 		this.log(`received resultEmpty message`);
+		state.set('ready');
 
 		if (!message.data) {
 			this.log('resultEmpty message missing data, ignoring');
@@ -181,7 +182,6 @@ export class WSMessageManager {
 			result.uuid
 		);
 		setPageTitle('? NO TESTS FOUND');
-		state.set('ready');
 	}
 
 	private handleNotification(message: WSMessage) {

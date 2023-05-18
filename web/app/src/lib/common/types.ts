@@ -36,6 +36,7 @@ export interface Result {
 	start: string;
 	duration: number;
 	exitCode: number;
+	output: string;
 	targets: string[];
 	passed: number;
 	failed: number;
