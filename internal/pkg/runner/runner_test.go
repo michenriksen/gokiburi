@@ -105,8 +105,8 @@ func TestRunner_Run_Integration(t *testing.T) {
 	require.NotZero(t, result.Duration)
 	require.Empty(t, result.Error)
 	require.False(t, result.Pass)
-	require.Equal(t, 3, result.Tests)
-	require.Equal(t, 1, result.Passed)
+	require.Equal(t, 4, result.Tests)
+	require.Equal(t, 2, result.Passed)
 	require.Equal(t, 1, result.Skipped)
 	require.Equal(t, 1, result.Failed)
 	require.Len(t, result.Packages, 1)
@@ -115,12 +115,12 @@ func TestRunner_Run_Integration(t *testing.T) {
 
 	require.True(t, strings.HasSuffix(pkg.Name, "testdata/numbers"))
 	require.False(t, pkg.Pass)
-	require.Equal(t, 1, pkg.Passed)
+	require.Equal(t, 2, pkg.Passed)
 	require.Equal(t, 1, pkg.Skipped)
 	require.Equal(t, 1, pkg.Failed)
-	require.Len(t, pkg.Tests, 3)
+	require.Len(t, pkg.Tests, 4)
 	require.NotZero(t, pkg.Elapsed)
-	require.Equal(t, 66.7, pkg.Coverage)
+	require.Equal(t, 80.0, pkg.Coverage)
 
 	passed := testByName(t, "TestIntMinBasic", pkg.Tests)
 	skipped := testByName(t, "TestIntMinTableDriven", pkg.Tests)
@@ -140,6 +140,55 @@ func TestRunner_Run_Integration(t *testing.T) {
 	require.False(t, failed.Pass)
 	require.False(t, failed.Skip)
 	require.Equal(t, "=== RUN   TestIntMinFailing\n    numbers_test.go:41: failing test\n--- FAIL: TestIntMinFailing (0.00s)\n", failed.Output)
+}
+
+func TestRunner_Run_Timeout(t *testing.T) {
+	runnerFunc := mockRunnerFunc(t, testutil.ReadFile(t, "testdata", "testoutput-timeout.json"), 1, nil)
+	r := runner.New(context.Background(), "./testdata",
+		runner.WithRunnerFunc(runnerFunc),
+		runner.WithUUIDFunc(mockUUIDFunc),
+	)
+
+	result, err := r.Run(testTarget)
+
+	require.NoError(t, err)
+	require.NotNil(t, result)
+
+	defer func() {
+		if dir := result.Dir(); dir != "" {
+			os.RemoveAll(dir)
+		}
+	}()
+
+	require.Equal(t, "deadbeef", result.UUID)
+	require.Equal(t, []string{testTarget}, result.Targets)
+	require.NotZero(t, result.Duration)
+	require.Empty(t, result.Error)
+	require.False(t, result.Pass)
+	require.Equal(t, 2, result.Tests)
+	require.Equal(t, 1, result.Passed)
+	require.Equal(t, 0, result.Skipped)
+	require.Equal(t, 1, result.Failed)
+	require.Len(t, result.Packages, 1)
+
+	pkg := result.Packages[0]
+
+	require.True(t, strings.HasSuffix(pkg.Name, "testdata/numbers"))
+
+	passed := testByName(t, "TestCounterIncrement", pkg.Tests)
+	failed := testByName(t, "TestCounterTimesOut", pkg.Tests)
+
+	require.Equal(t, pkg.Name, passed.Package)
+	require.True(t, passed.Pass)
+	require.False(t, passed.Skip)
+	require.False(t, passed.Timeout)
+
+	require.Equal(t, pkg.Name, failed.Package)
+	require.False(t, failed.Pass)
+	require.False(t, failed.Skip)
+	require.True(t, failed.Timeout)
+	require.Contains(t, failed.Output, "panic: test timed out after 500ms")
+	require.Contains(t, failed.Output, "goroutine 135 [sleep]:\ntime.Sleep(0x3b9aca00)\n")
 }
 
 func TestRunner_Run_NoTests(t *testing.T) {

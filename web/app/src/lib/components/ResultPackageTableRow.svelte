@@ -4,7 +4,14 @@
 	import { slide } from 'svelte/transition';
 
 	import { CodeBlock } from '../../skeleton';
-	import { mdiCheckCircleOutline, mdiClockStart, mdiCloseCircleOutline, mdiConsole, mdiDebugStepOver } from '@mdi/js';
+	import {
+		mdiCheckCircleOutline,
+		mdiClockStart,
+		mdiCloseCircleOutline,
+		mdiConsole,
+		mdiDebugStepOver,
+		mdiTimerRemoveOutline
+	} from '@mdi/js';
 	import { conditionalScale } from '$lib/conditionalTransitions';
 	import { format, formatDistanceToNow, isToday } from 'date-fns';
 
@@ -60,6 +67,8 @@
 				<SvgIcon path={mdiDebugStepOver} class="text-warning-500 inline-block" size="1.7em" title="Skipped" />
 			{:else if test.pass}
 				<SvgIcon path={mdiCheckCircleOutline} class="text-success-500 inline-block" size="1.7em" title="Passed" />
+			{:else if test.timeout}
+				<SvgIcon path={mdiTimerRemoveOutline} class="text-error-400 inline-block" size="1.7em" title="Timed out" />
 			{:else}
 				<SvgIcon path={mdiCloseCircleOutline} class="text-error-400 inline-block" size="1.7em" title="Failed" />
 			{/if}

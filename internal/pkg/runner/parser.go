@@ -38,8 +38,17 @@ type Test struct {
 	Package string    `json:"package"`
 	Pass    bool      `json:"pass"`
 	Skip    bool      `json:"skip"`
+	Timeout bool      `json:"timeout"`
 	Elapsed float64   `json:"elapsed"`
 	Output  string    `json:"output"`
+}
+
+func (t *Test) detectTimeout() bool {
+	if !t.Pass && strings.Contains(t.Output, "panic: test timed out") {
+		t.Timeout = true
+	}
+
+	return t.Timeout
 }
 
 type parser struct {
@@ -113,6 +122,7 @@ func (*parser) makePkgSlice(pkgMap map[string]*Package) []*Package {
 		tests := make([]*Test, 0, len(pkg.testMap))
 
 		for _, test := range pkg.testMap {
+			test.detectTimeout()
 			tests = append(tests, test)
 		}
 
