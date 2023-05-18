@@ -7,6 +7,7 @@ export interface Test {
 	package: string;
 	pass: boolean;
 	skip: boolean;
+	timeout: boolean;
 	elapsed: number; // Seconds.
 	output: string;
 }

@@ -23,3 +23,10 @@ func TestCounterIncrement(t *testing.T) {
 		t.Errorf("Expected counter value to be 100, got %d", c.Value())
 	}
 }
+
+// func TestCounterTimesOut was used to generate test data for a test run with
+// a test timing out.
+// func TestCounterTimesOut(t *testing.T) {
+// 	time.Sleep(1 * time.Second)
+// 	t.Error("Expected test to time out")
+// }

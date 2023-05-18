@@ -36,3 +36,7 @@ func TestIntMinTableDriven(t *testing.T) {
 		})
 	}
 }
+
+func TestIntMinFailing(t *testing.T) {
+	t.Error("failing test")
+}
