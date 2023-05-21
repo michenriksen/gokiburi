@@ -1,0 +1,48 @@
+---
+name: Verify Backend
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "go.mod"
+      - "**/*.go"
+  pull_request:
+    branches: [main]
+    paths:
+      - "go.mod"
+      - "**/*.go"
+  schedule:
+    - cron: "0 10 * * 1"
+  workflow_call:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Verify Backend
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      fail-fast: true
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Install Go
+        uses: actions/setup-go@v4
+        with:
+          go-version-file: "go.mod"
+          cache-dependency-path: "go.sum"
+
+      - name: Install dependencies
+        run: "go install github.com/caarlos0/svu@latest"
+
+      - name: Run make verify-be
+        run: make verify-be

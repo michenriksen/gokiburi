@@ -2,7 +2,7 @@
 	import { onDestroy } from 'svelte';
 	import { mdiLightbulbOutline } from '@mdi/js';
 
-	import { dispatchRunTests } from '$lib/stores/events';
+	import { dispatchRunTests, dispatchOpenSettings } from '$lib/stores/events';
 	import { state } from '$lib/stores/status';
 	import SvgIcon from '$lib/components/SvgIcon.svelte';
 

@@ -22,31 +22,22 @@ jobs:
           fetch-depth: 0
       - run: git fetch --force --tags
 
-      - name: Create release
+      - name: Install Go
+        uses: actions/setup-go@v4
+        with:
+          go-version-file: "go.mod"
+          cache-dependency-path: "go.sum"
+
+      - name: Install dependencies
+        run: "go install github.com/caarlos0/svu@latest"
+
+      - name: Create release tag
         run: |
           git config --global user.email "mchnrksn@gmail.com"
           git config --global user.name "Michael Henriksen"
           git tag -a "$VERSION" -m "$VERSION"
         env:
           VERSION: ${{ github.event.inputs.version }}
-
-      - uses: actions/setup-go@v4
-        with:
-          go-version: stable
-
-      - name: Install Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: "latest"
-          cache: "npm"
-          cache-dependency-path: "web/app/package-lock.json"
-
-      - name: Install NPM dependencies
-        run: npm ci && git diff --exit-code
-        working-directory: web/app
-
-      - name: Install Syft
-        run: curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v4
@@ -55,13 +46,14 @@ jobs:
           version: latest
           args: release --clean
         env:
+          APP_NAME: gokiburi
           VERSION: ${{ github.event.inputs.version }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HOMEBREW_TAP_GITHUB_TOKEN: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}
           GOPATH: ${{ github.workspace }}/go
 
       - name: Notify Go proxy about new release
-        run: go list -m "github.com/michenriksen/gokiburi@$VERSION" || true
+        run: go list -m "github.com/michenriksen/gokiburi@${VERSION:1}" || true
         env:
           GOPROXY: proxy.golang.org
           VERSION: ${{ github.event.inputs.version }}

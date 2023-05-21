@@ -1,5 +1,3 @@
-# This is an example .goreleaser.yml file with some sensible defaults.
-# Make sure to check the documentation at https://goreleaser.com
 ---
 project_name: gokiburi
 report_sizes: true
@@ -9,9 +7,8 @@ env:
 before:
   hooks:
     - make clean
-    - go mod tidy
-    - make dep-csv
-    - make sbom
+    - make gen-deps-csv
+    - make gen-sbom
     - make build-fe
 builds:
   - env:
@@ -64,6 +61,7 @@ archives:
       - LICENSE.md
       - dependencies.csv
       - "{{ .ProjectName }}.spdx.sbom"
+    rlcp: true
 
 checksum:
   name_template: "checksums.txt"

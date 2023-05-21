@@ -12,7 +12,7 @@ fi
 tempfile=$(mktemp)
 
 echo -n "running syft: "
-ERRS=$(syft --quiet -o template -t dependencies.csv.tmpl --file "$tempfile" --exclude "./build/*,./dist/*,./web/app/build/**/*" .)
+ERRS=$(syft --quiet -o template -t dependencies.csv.tmpl --file "$tempfile" --exclude "./build/*,./bin/*,./dist/*,./web/app/build/**/*" .)
 if [ "$ERRS" != "" ]; then
     echo "FAIL"
     echo "$ERRS"

@@ -1,0 +1,46 @@
+---
+name: Lint GitHub Actions
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/**/*.yml"
+      - ".github/**/*.yaml"
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/**/*.yml"
+      - ".github/**/*.yaml"
+  workflow_call:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint GitHub Actions
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      fail-fast: true
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Install Go
+        uses: actions/setup-go@v4
+        with:
+          go-version-file: "go.mod"
+          cache-dependency-path: "go.sum"
+
+      - name: Install dependencies
+        run: "go install github.com/caarlos0/svu@latest"
+
+      - name: Run make lint-gha
+        run: make lint-gha

@@ -6,12 +6,11 @@ else
     MAKEFLAGS += -s
 endif
 
-BIN ?= gokiburi
-
-APP_NAME ?= $(BIN)
+APP_NAME ?= gokiburi
 
 ifeq ($(VERSION),)
-  VERSION := $(shell git log -1 --format="%ad-%h" --date=format-local:"%Y%m%d%H%M%S" --abbrev=12)
+  # VERSION := $(shell git log -1 --format="%ad-%h" --date=format-local:"%Y%m%d%H%M%S" --abbrev=12)
+  VERSION := $(shell svu --strip-prefix --pre-release=dev)
 endif
 
 DBG ?=
@@ -23,21 +22,10 @@ MAKEFLAGS += --warn-undefined-variables
 OS := $(if $(GOOS),$(GOOS),$(shell go env GOOS))
 ARCH := $(if $(GOARCH),$(GOARCH),$(shell go env GOARCH))
 
-TAG := $(VERSION)__$(OS)_$(ARCH)
-
-BIN_EXTENSION :=
-ifeq ($(OS), windows)
-  BIN_EXTENSION := .exe
-endif
-
-SHELL := /usr/bin/env bash -o errexit -o pipefail -o nounset
-
 GOFLAGS ?=
 HTTP_PROXY ?=
 HTTPS_PROXY ?=
 
-export BIN
-export BIN_EXTENSION
 export APP_NAME
 export VERSION
 export DBG
@@ -47,59 +35,85 @@ export GOFLAGS
 export HTTP_PROXY
 export HTTPS_PROXY
 
-build: # @HELP builds binary to ./build directory for one platform ($OS/$ARCH)
-build: build-fe
-	scripts/build.sh
+build: # @HELP builds snapshot binary for $OS/$ARCH to ./bin
+build:
+	go run ci/main.go -run build
 
-build-fe: # @HELP builds frontend, as defined in ./scripts/build-fe.sh
+build-fe: # @HELP builds frontend to ./web/app/build
 build-fe:
-	scripts/build-fe.sh
+	go run ci/main.go -run build-fe
+
+verify: # @HELP runs backend and frontend tests, lints, audits, and verification builds
+verify:
+	go run ci/main.go -run verify-all
+
+verify-be: # @HELP runs backend tests, lints, audits, and verification build
+verify-be:
+	go run ci/main.go -run verify-be
+
+verify-fe: # @HELP runs frontend tests, lints, audits, and verification build
+verify-fe:
+	go run ci/main.go -run verify-fe
 
 version: # @HELP outputs the version string
 version:
 	echo $(VERSION)
 
-version-next: # @HELP outputs the next version string based on commits.
+version-next: # @HELP outputs the next version string based on commits
 version-next:
 	svu next
 
-test-all: # @HELP runs tests for Go and frontend
-test-all: test test-fe
-
-test: # @HELP runs tests, as defined in ./scripts/test.sh
+test: # @HELP runs backend and frontend tests
 test:
-	scripts/test.sh ./...
+	go run ci/main.go -run test-all
 
-test-fe: # @HELP runs frontend tests, as defined in ./scripts/test-fe.sh
+test-be: # @HELP runs backend tests
+test-be:
+	go run ci/main.go -run test-be
+
+test-fe: # @HELP runs frontend tests
 test-fe:
-	scripts/test-fe.sh
+	go run ci/main.go -run test-fe
 
-lint-all: # @HELP runs linting for Go and frontend
-lint-all: lint lint-fe
-
-lint: # @HELP runs linting, as defined in ./scripts/lint.sh
+lint: # @HELP lints backend, frontend, and GitHub Actions code
 lint:
-	scripts/lint.sh ./...
+	go run ci/main.go -run lint-all
 
-audit-all: # @HELP runs Go, frontend, and GitHub Actions security audits
-audit-all:
-	scripts/audit.sh
+lint-be: # @HELP lints backend code
+lint-be:
+	go run ci/main.go -run lint-be
 
-audit: # @HELP runs Go security audits, as defined in ./scripts/audit.sh
-audit:
-	scripts/audit.sh go
-
-audit-fe: # @HELP runs frontend security audits, as defined in ./scripts/audit.sh
-audit-fe:
-	scripts/audit.sh fe
-
-audit-gha: # @HELP runs GitHub Actions security audits, as defined in ./scripts/audit.sh
-audit-gha:
-	scripts/audit.sh gha
-
-lint-fe: # @HELP runs frontend linting, as defined in ./scripts/lint-fe.sh
+lint-fe: # @HELP lints frontend code
 lint-fe:
-	scripts/lint-fe.sh
+	go run ci/main.go -run lint-fe
+
+lint-gha: # @HELP lints GitHub Actions
+lint-gha:
+	go run ci/main.go -run lint-gha
+
+lint-yaml: # @HELP lints all YAML files
+lint-yaml:
+	go run ci/main.go -run lint-yaml
+
+lint-goreleaser: # @HELP lints GoReleaser configuration
+lint-goreleaser:
+	go run ci/main.go -run lint-goreleaser
+
+lint-commits: # @HELP lints commit messages
+lint-commits:
+	go run ci/main.go -run lint-commits
+
+audit: # @HELP audits backend and frontend code for security issues
+audit:
+	go run ci/main.go -run audit-all
+
+audit-be: # @HELP audits backend code for security issues
+audit-be:
+	go run ci/main.go -run audit-be
+
+audit-fe: # @HELP audits frontend code for security issues
+audit-fe:
+	go run ci/main.go -run audit-fe
 
 clean: # @HELP removes build artifacts
 clean:
@@ -109,18 +123,19 @@ clean:
 	rm -f ./dependencies.csv
 	rm -f ./gokiburi.spdx.sbom
 
-dep-csv: # @HELP generates CVS of dependencies to ./dependencies.csv
-dep-csv:
-	scripts/dep-csv.sh
+gen-deps-csv: # @HELP generates CSV of dependencies to ./dependencies.csv
+gen-deps-csv:
+	go run ci/main.go -run gen-deps-csv
 
-sbom: # @HELP generates SBOM file to ./gokiburi.spdx.sbom
-sbom:
-	scripts/sbom.sh
+gen-sbom: # @HELP generates SBOM file to ./$APP_NAME.spdx.sbom
+gen-sbom:
+	go run ci/main.go -run gen-sbom
 
 help: # @HELP prints this message
 help:
 	echo "VARIABLES:"
-	echo "  BIN = $(BIN)"
+	echo "  APP_NAME = $(APP_NAME)"
+	echo "  VERSION = $(VERSION)"
 	echo "  OS = $(OS)"
 	echo "  ARCH = $(ARCH)"
 	echo "  DBG = $(DBG)"
