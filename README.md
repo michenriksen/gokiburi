@@ -3,8 +3,8 @@
 <div align="right">
     <a href="LICENSE.md"><img src="https://img.shields.io/github/license/michenriksen/gokiburi" alt="License: MIT" /></a>
     <a href="https://goreportcard.com/report/github.com/michenriksen/gokiburi"><img src="https://goreportcard.com/badge/github.com/michenriksen/gokiburi" alt="Go Report: A+" /></a>
-    <a href="https://github.com/michenriksen/gokiburi/actions/workflows/build.yml"><img src="https://img.shields.io/github/actions/workflow/status/michenriksen/gokiburi/build.yml?label=backend" alt="Backend build status" /></a>
-    <a href="https://github.com/michenriksen/gokiburi/actions/workflows/build-fe.yml"><img src="https://img.shields.io/github/actions/workflow/status/michenriksen/gokiburi/build-fe.yml?label=frontend" alt="Frontend build status" /></a>
+    <a href="https://github.com/michenriksen/gokiburi/actions/workflows/verify-be.yml"><img src="https://img.shields.io/github/actions/workflow/status/michenriksen/gokiburi/verify-be.yml?label=backend" alt="Backend build status" /></a>
+    <a href="https://github.com/michenriksen/gokiburi/actions/workflows/verify-fe.yml"><img src="https://img.shields.io/github/actions/workflow/status/michenriksen/gokiburi/verify-fe.yml?label=frontend" alt="Frontend build status" /></a>
     <img src="https://img.shields.io/badge/status-beta-yellow" alt="Status: Beta" />
     <a href="https://github.com/michenriksen/gokiburi/releases"><img src="https://img.shields.io/github/downloads/michenriksen/gokiburi/total" alt="Download count" /></a>
 </div>
