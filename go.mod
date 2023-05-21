@@ -1,6 +1,6 @@
 module github.com/michenriksen/gokiburi
 
-go 1.19
+go 1.20
 
 require (
 	github.com/aidarkhanov/nanoid/v2 v2.0.5
