@@ -3,7 +3,7 @@ module github.com/michenriksen/gokiburi
 go 1.20
 
 require (
-	dagger.io/dagger v0.6.2
+	dagger.io/dagger v0.6.3
 	github.com/aidarkhanov/nanoid/v2 v2.0.5
 	github.com/charmbracelet/lipgloss v0.7.1
 	github.com/charmbracelet/log v0.2.1
