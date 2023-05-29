@@ -123,6 +123,10 @@ clean:
 	rm -f ./dependencies.csv
 	rm -f ./gokiburi.spdx.sbom
 
+clean-ci: # @HELP removes Docker containers, volumes, and images for Dagger CI
+clean-ci:
+	scripts/clean-ci.sh
+
 gen-deps-csv: # @HELP generates CSV of dependencies to ./dependencies.csv
 gen-deps-csv:
 	go run ci/main.go -run gen-deps-csv
