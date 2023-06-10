@@ -15,7 +15,7 @@ require (
 	github.com/spf13/viper v1.15.0
 	github.com/stretchr/testify v1.8.3
 	golang.org/x/net v0.10.0
-	golang.org/x/tools v0.9.1
+	golang.org/x/tools v0.9.3
 )
 
 require (
