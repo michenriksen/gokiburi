@@ -14,6 +14,18 @@ issues:
 
 linters-settings:
   depguard:
+    rules:
+      main:
+        files:
+          - $all
+          - "!$test"
+        deny:
+          - pkg: github.com/go-ozzo/ozzo-validation
+            desc: "use maintained github.com/invopop/validation fork instead"
+          - pkg: github.com/stretchr/testify
+            desc: "testify must only be used in test files"
+          - pkg: github.com/brianvoe/gofakeit
+            desc: "gofakeit must only be used in test files"
     list-type: denylist
     packages-with-error-message:
       - github.com/stretchr/testify/assert: "use github.com/stretchr/testify/require for faster tests"
