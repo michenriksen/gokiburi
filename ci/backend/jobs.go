@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	containerBaseImage = "golang:alpine3.18"
+	containerBaseImage = "golang:1.21.0-alpine3.18"
 	golangciInstallURL = "https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh"
 )
 
