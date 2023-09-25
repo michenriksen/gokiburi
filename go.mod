@@ -3,7 +3,7 @@ module github.com/michenriksen/gokiburi
 go 1.20
 
 require (
-	dagger.io/dagger v0.8.4
+	dagger.io/dagger v0.8.7
 	github.com/aidarkhanov/nanoid/v2 v2.0.5
 	github.com/charmbracelet/lipgloss v0.8.0
 	github.com/charmbracelet/log v0.2.4
@@ -52,7 +52,7 @@ require (
 	github.com/vektah/gqlparser/v2 v2.5.6 // indirect
 	golang.org/x/crypto v0.12.0 // indirect
 	golang.org/x/sync v0.3.0 // indirect
-	golang.org/x/sys v0.11.0 // indirect
+	golang.org/x/sys v0.12.0 // indirect
 	golang.org/x/text v0.12.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
