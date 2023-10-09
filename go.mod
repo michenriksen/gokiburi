@@ -6,7 +6,7 @@ require (
 	dagger.io/dagger v0.8.4
 	github.com/aidarkhanov/nanoid/v2 v2.0.5
 	github.com/charmbracelet/lipgloss v0.8.0
-	github.com/charmbracelet/log v0.2.4
+	github.com/charmbracelet/log v0.2.5
 	github.com/dustin/go-humanize v1.0.1
 	github.com/fsnotify/fsnotify v1.6.0
 	github.com/invopop/validation v0.3.0
