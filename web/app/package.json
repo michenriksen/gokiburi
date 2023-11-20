@@ -23,7 +23,7 @@
 		"@testing-library/jest-dom": "^5.17.0",
 		"@testing-library/svelte": "^4.0.3",
 		"@types/howler": "^2.2.8",
-		"@typescript-eslint/eslint-plugin": "^5.62.0",
+		"@typescript-eslint/eslint-plugin": "^6.11.0",
 		"@typescript-eslint/parser": "^5.62.0",
 		"autoprefixer": "^10.4.15",
 		"date-fns": "^2.30.0",
