@@ -35,7 +35,7 @@
 		"howler": "^2.2.3",
 		"jest-websocket-mock": "^2.4.1",
 		"jsdom": "^22.1.0",
-		"postcss": "^8.4.28",
+		"postcss": "^8.4.32",
 		"prettier": "^2.8.8",
 		"prettier-plugin-svelte": "^2.10.1",
 		"svelte": "^3.59.2",
